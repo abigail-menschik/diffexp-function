@@ -5,7 +5,19 @@ library(GEOquery)
 library(limma)
 
 diffexp <- function(x) {
-        data <- getGEO("x")
-        eset <- data[[1]]
-        e <- exprs(eset)
-        
+data <- getGEO("x"); 
+eset <- data[[1]]; 
+e <- exprs(eset); 
+
+# have to add model matrix command i.e. design <- model.matrix(~ 0+factor(c(#,#)))
+
+colnames(design) <- c("group1", group2");
+fit <- lmfit(eset, design);
+contrast.matrix <- makeContrasts(group2-group1, levels=design);
+fit2 <- contrasts.fit(fit, contrast.matrix);
+fit2 <- eBayes(fit2);
+tt <- topTable(fit2, coef=1, number=Inf);
+return(tt)
+
+}
+    
