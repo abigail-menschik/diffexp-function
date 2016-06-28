@@ -4,12 +4,10 @@ function to run differential expression
 library(GEOquery)
 library(limma)
 
-diffexp <- function(x) {
-data <- getGEO("x"); 
-eset <- data[[1]]; 
-e <- exprs(eset); 
+diffexp <- function(GSE) {samples<-getGEO("GSE");eset<-samples[[1]];e<- exprs(eset)}
 
-# have to add model matrix command i.e. design <- model.matrix(~ 0+factor(c(#,#)))
+design<-model.matrix(~ 0+factor(c(1,2)))
+
 
 colnames(design) <- c("group1", group2");
 fit <- lmfit(eset, design);
@@ -21,3 +19,6 @@ return(tt)
 
 }
     
+
+
+calldata <- function(x) {samples
