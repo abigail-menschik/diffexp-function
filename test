@@ -4,14 +4,16 @@ function to run differential expression
 library(GEOquery)
 library(limma)
 
-# formatting the data/making targets file not part of the function
-# assume that has been done already in the code
+# formatting the data and making targets file not part of the function
+# assume it has already been done
 
-diffexp <- function(GSE) {
+diffexpLimma <- function(targ,expset) {
 
-design<-model.matrix(~ 0+factor(c(1,2)));
+ftarg <- factor(targ[,1]);
+design <- model.matrix(~ 0+factor(c(1,2)));
 colnames(design) <- c("group1", group2");
-fit <- lmfit(eset, design);
+fit <- lmfit(expset);
+
 contrast.matrix <- makeContrasts(group2-group1, levels=design);
 fit2 <- contrasts.fit(fit, contrast.matrix);
 fit2 <- eBayes(fit2);
@@ -20,6 +22,3 @@ return(tt)
 
 }
     
-
-
-calldata <- function(x) {samples
