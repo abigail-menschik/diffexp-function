@@ -9,10 +9,11 @@ library(limma)
 
 diffexpLimma <- function(targ,expset) {
 
-ftarg <- factor(targ[,1]);
-design <- model.matrix(~ 0+factor(c(1,2)));
-colnames(design) <- c("group1", group2");
-fit <- lmfit(expset);
+targDF <- targ;
+targ <- targ[,1];
+design <- model.matrix(~ 0+targ);
+colnames(design) <- gsub("targ", "", colnames(design));
+fit <- lmFit(expset, design);
 
 contrast.matrix <- makeContrasts(group2-group1, levels=design);
 fit2 <- contrasts.fit(fit, contrast.matrix);
